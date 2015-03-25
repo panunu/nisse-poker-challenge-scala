@@ -1,3 +1,5 @@
+package poker
+
 object Challenge {
   type Suite = String
   type Deck = List[Card]
@@ -11,9 +13,9 @@ object Challenge {
   }
 
   def takeHand(d: Deck): Hand = d.take(5)
-  def suites(h: Hand): List[Suite] = h.map(_.suite)
-  def numbers(h: Hand): List[Int] = h.map(_.number)
-  def group(h: Hand) = numbers(h).groupBy(i => i).map(_._2.length).filter(_ > 1)
+  private def suites(h: Hand): List[Suite] = h.map(_.suite)
+  private def numbers(h: Hand): List[Int] = h.map(_.number)
+  private def group(h: Hand) = numbers(h).groupBy(i => i).map(_._2.length).filter(_ > 1)
 
   def pair(h: Hand) = group(h) == List(2)
   def twoPairs(h: Hand) = group(h) == List(2, 2)
@@ -25,12 +27,4 @@ object Challenge {
     numbers(h).sorted == List.range(first, first + 5)
   }
   def straightFlush(h: Hand) = straight(h) && flush(h)
-
-  def run = {
-    val hand = takeHand(fullDeck)
-    println(hand)
-    straightFlush(hand)
-  }
 }
-
-//Challenge.run
